@@ -1,0 +1,222 @@
+﻿@using Web.Core.Dto;
+@using Web.Core.Util;
+@model ProductDto
+
+<div class="p-2 pb-3">
+    <div class="product-wap card rounded-0">
+        <div class="container">
+            <div style="padding-top: 10px; text-align: center">
+                <span style="font-size: 20px; font-weight: 500; ">Hãy để lại đánh giá về sản phẩm này!</span>
+            </div>
+
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-lg-3"> </div>
+                <div class="col-lg-6" style="padding-left: 20px;">
+                    <div style="text-align: center; padding-top: 10px;">
+                        <span style="font-size: 15px; font-weight: 300; ">Nhập email của bạn...</span>
+                    </div>
+                    <div class="input-group mb-3" style=" text-align: center">
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputEmail">
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+                <div style="padding-left: 20px; padding-bottom: 10px">
+                    <span style="font-size: 20px;" id="nameBuyer"></span>
+                </div>
+                <div style="display: none;" id="ReviewArea">
+                    <input type="hidden" id="ratingArea" value="5" />
+                    <div class="row d-flex" style="padding-bottom: 10px; ">
+                        <div></div>
+                        <div class="row" style="padding-left: 20px">
+                            <div class="col-3">
+                                <span>Chất lượng sản phẩm:</span>
+                            </div>
+                            <div class="col-2">
+                                <ul class="list-unstyled mb-1 p" style="padding-left: 20px;">
+                                    <li>
+                                        <i class="text-warning fa fa-star" id="star1" onclick="setstar(1)"></i>
+                                        <i class="text-warning fa fa-star" id="star2" onclick="setstar(2)"></i>
+                                        <i class="text-warning fa fa-star" id="star3" onclick="setstar(3)"></i>
+                                        <i class="text-warning fa fa-star" id="star4" onclick="setstar(4)"></i>
+                                        <i class="text-warning fa fa-star" id="star5" onclick="setstar(5)"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-7">
+                                <span id="QualText">Tuyệt vời</span>
+                            </div>
+                        </div>
+
+                        <span style="padding-left: 20px;">Bình luận:</span><br>
+                        <div class="input-group" style="padding-left: 20px;">
+                            <textarea class="form-control" aria-label="With textarea" id="reviewArea"></textarea>
+                        </div>
+                        <div style="padding-top: 10px; text-align: right;">
+                            <button class="btn btn-success btn-lg" type="button" data-toggle="modal" data-target="#OTPModalReview">Gửi bình luận</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!--Modal check OTP-->
+    <div class="modal fade" id="OTPModalReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác thực OTP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Mã OTP đã được gửi về địa chỉ email của bạn.</span><br />
+                    <span>Email: <span id="emailModal"></span></span><br />
+                    <span>Nhập mã OTP:</span><br/>
+                    <span class="text-danger" hidden id="warningModal">Mã OTP không đúng!</span>
+                    <div class="input-group mb-3">
+                        <input type="text" id="OTPInput" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success btn-lg" onclick="submitComment()">Gửi bình luận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End model -->
+
+
+    <script>
+    function setstar(count) {
+        for (let i = 1; i <= 5; i++)
+        {
+            let elem = document.getElementById('star' + i);
+            elem.classList.remove("text-warning");
+            elem.classList.remove("text-muted");
+            if (i <= count) {
+
+                elem.classList.add("text-warning");
+            }
+            else {
+                elem.classList.add("text-muted");
+            }
+        }
+
+        if (count == 1) {
+            document.getElementById('QualText').textContent = "Tệ";
+        }
+        else if (count == 2) {
+            document.getElementById('QualText').textContent = "Không hài lòng";
+        }
+        else if (count == 3) {
+            document.getElementById('QualText').textContent = "Bình thường";
+        }
+        else if (count == 4) {
+            document.getElementById('QualText').textContent = "Hài lòng";
+        }
+        else if (count == 5) {
+            document.getElementById('QualText').textContent = "Tuyệt vời";
+        }
+        else {
+            document.getElementById('QualText').textContent = "";
+        }
+        document.getElementById("ratingArea").value = count.toString();
+
+    }
+
+    function submitComment() {
+        var OTP = document.getElementById("OTPInput").value;
+        if (OTP == '123456') {
+            var productId =@Model.Id;
+            var Email = document.getElementById("inputEmail").value;
+            var comment = document.getElementById("reviewArea").value;
+            var star = document.getElementById("ratingArea").value;
+
+            //alert(Email);
+            //alert(comment);
+            //alert(star);
+            $.ajax({
+                type: "POST",
+                url: "/Home/submitComment",
+                data: { productId: productId, email: Email, comment: comment, star: star },
+                success: function (response) {
+                    if (response === true) {
+                        setTimeout(function () {
+                            window.location.href = "/san-pham/@Model.Alias";
+                        }, 10);
+                    }
+                    else {
+
+                    }
+                },
+                error: function () {
+                    // Handle AJAX error
+                    alert("An error occurred during the AJAX request.");
+                }
+            });
+        }
+        else {
+            document.getElementById("warningModal").removeAttribute("hidden");
+        }
+
+    }
+
+    //Check data sdt thay đổi
+    var sdt = document.getElementById("inputEmail");
+
+
+    sdt.addEventListener("input", function (e) {
+        if (sdt.value.length > 10) {
+            searchEmail(sdt.value);
+        }
+        else {
+            document.getElementById("nameBuyer").textContent = "";
+            document.getElementById("ReviewArea").style.display = "none";
+        }
+    });
+
+
+    function searchEmail(Email) {
+        var productId =@Model.Id;
+        var flag;
+        $.ajax({
+            type: "POST",
+            url: "/Home/Comment",
+            data: { Email: Email, productId: productId },
+            success: function (response) {
+                if (response === true) {
+                    $.ajax({
+                        url: "@Url.Action("QueryUserByEmail", "Home")",
+                        method: "POST",
+                        data: { Email: Email },
+                        success: function (data) {
+                            document.getElementById("nameBuyer").textContent = "Khách hàng: " + data.FullName;
+                            document.getElementById("ReviewArea").style.display = "inline";
+                            document.getElementById("emailModal").innerHTML = Email;
+                        },
+                        error: function () {
+                            alert("Error querying the database.");
+                        }
+                    });
+                } else {
+                    document.getElementById("nameBuyer").textContent = "Không tìm thấy thông tin mua hàng!";
+                    document.getElementById("ReviewArea").style.display = "none";
+                }
+            },
+            error: function () {
+                alert("An error occurred during the AJAX request.");
+            }
+        });
+        return flag;
+    }
+
+
+    </script>

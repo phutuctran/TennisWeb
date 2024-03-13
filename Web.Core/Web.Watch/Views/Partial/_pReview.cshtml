@@ -1,0 +1,38 @@
+﻿@using Web.Core.Dto;
+@using Web.Core.Util;
+@model ReviewDto
+<div class="p-2 pb-3">
+    <div class="product-wap card rounded-0">
+
+        <div class="container">
+            <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+                <div class="col-1" style="padding-top: 0%;">
+                    <a><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="rounded-circle img-fluid border"></a>
+                </div>
+                <div class="col-11" style=" padding-top: 5px; padding-left: 0%;">
+                    <span style="font-size: 20px;">@Model.CustomerName</span><br>
+                    <span style="font-size: 15px;">Ngày bình luận: @Model.Created</span>
+                    <p class="py-2">
+                        @{
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= Model.Star)
+                                {
+                                    <i class="fa fa-star text-warning"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star text-secondary"></i>
+                                }
+                            }
+
+
+                        }
+                    </p>
+                    <p class="mb-0">@Model.Content</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

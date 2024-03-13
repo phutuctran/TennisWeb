@@ -1,0 +1,114 @@
+﻿@using Web.Core.Dto;
+@using Web.Watch.Service;
+@model WebsiteDto
+@{
+    List<ArticleDto> articles = UtilService.GetArticle();
+}
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+<script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "195913966934615");
+      chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+<!-- Your SDK code -->
+<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v18.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-secondary border-bottom pb-3 border-light logo">
+                    <img src="~/Resources/files/logo.PNG" />
+                    @Model.Name
+                </h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li>
+                        <i class="fas fa-map-marker-alt fa-fw"></i>
+                        @Model.Address
+                    </li>
+                    <li>
+                        <i class="fa fa-phone fa-fw"></i>
+                        <a class="text-decoration-none" href="tel:@Model.PhoneNumber">Hotline: @Model.PhoneNumber<br /></a>
+                        <a class="text-decoration-none" href="tel:@Model.Fax">&emsp;&ensp;Fax: @Model.Fax</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <a class="text-decoration-none" href="mailto:@Model.Email">@Model.Email</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Về chúng tôi</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none">@Model.UserDef1</a></li>
+                    <li><a class="text-decoration-none">@Model.UserDef2</a></li>
+                    <li><a class="text-decoration-none">@Model.UserDef3</a></li>
+                    <li><a class="text-decoration-none">@Model.UserDef4</a></li>
+                    <li><a class="text-decoration-none">@Model.UserDef5</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Sản phẩm</h2>
+                <ul class="list-unstyled text-light footer-link-list" id="menuList">
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright &copy; 2023 T-TWatch
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    $.ajax({
+        url: '/Home/GetAllMenu',
+        type: 'POST',
+        success: function (result) {
+            console.log(result);
+            var menu = document.getElementById("menuList");
+            for (let i = 0; i < result.length; i++) {
+                var child = document.createElement("li");
+                child.innerHTML = "<a class=\"text-decoration-none\" href=\"/danh-muc/" + result[i].Alias + "\">" + result[i].Name + "</a>"
+                menu.appendChild(child);
+            }
+
+        },
+        error: function (error) {
+            console.log('Error:', error);
+        }
+    });
+</script>
