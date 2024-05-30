@@ -50,6 +50,10 @@ namespace Web.Watch.Controllers
         {
             return View();
         }
+        public ActionResult News()
+        {
+            return View();
+        }
         public ActionResult Category(string alias, string orderBy = "")
         {
             ViewBag.orderBy = orderBy;
