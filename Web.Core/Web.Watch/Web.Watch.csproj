@@ -255,7 +255,25 @@
     <Compile Include="Models\PaymentInfomation.cs" />
     <Compile Include="Models\Payments\VnPayLibrary.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
+    <Content Include="Plugins\animate\animate.css" />
+    <Content Include="Plugins\animsition\css\animsition.css" />
+    <Content Include="Plugins\animsition\css\animsition.min.css" />
+    <Content Include="Plugins\animsition\js\animsition.js" />
+    <Content Include="Plugins\animsition\js\animsition.min.js" />
+    <Content Include="Plugins\css-hamburgers\hamburgers.css" />
+    <Content Include="Plugins\css-hamburgers\hamburgers.min.css" />
     <Content Include="Plugins\css\custom.css" />
+    <Content Include="Plugins\css\main.css" />
+    <Content Include="Plugins\css\templatemo.min.css" />
+    <Content Include="Plugins\css\util.css" />
+    <Content Include="Plugins\css\util.min.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fa-brands.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fa-brands.min.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fa-regular.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fa-regular.min.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fa-solid.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fa-solid.min.css" />
+    <Content Include="Plugins\fonts\fonts\fontawesome-5.0.8\css\fontawesome-all.min.css" />
     <Content Include="Plugins\js\datatable.js" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\VoucherService.cs" />
@@ -1481,6 +1499,8 @@
     <Content Include="Resources\files\Product\xiaomi3.png" />
     <Content Include="Resources\files\Product\_0002_xiaomi-redmi-watch-2-lite-black.png" />
     <Content Include="Resources\files\wall-clock.png" />
+    <Content Include="Resources\Newsimg\1.jpg" />
+    <Content Include="Resources\Newsimg\2.jpg" />
     <Content Include="Resources\_thumbs\Files\Gallery\830-300-830x300-12.png" />
     <Content Include="Resources\_thumbs\Files\Gallery\830-300-830x300-13.png" />
     <Content Include="Resources\_thumbs\Files\Gallery\830-300-830x300-14.png" />
