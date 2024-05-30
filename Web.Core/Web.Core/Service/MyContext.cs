@@ -1,13 +1,15 @@
 using System.Data.Entity;
+using MySql.Data.EntityFramework;
 using Web.Core.Model;
 
 namespace Web.Core.Service
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MyContext : DbContext
     {
-        public static string connect0 = "data source=.\\SQLEXPRESS;initial catalog=WatchStore;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
-        public static string connect = "Data Source=SQL5112.site4now.net;Initial Catalog=db_aa2fad_ttwatch;User Id=db_aa2fad_ttwatch_admin;Password=TTwatch123";
-        public MyContext() : base(connect0)
+        public static string connect0 = "data source=.\\SQLEXPRESS;initial catalog=TennisWeb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
+        public static string connect = "server=gateway01.ap-southeast-1.prod.aws.tidbcloud.com;port=4000;database=WatchStore;user=4AVJGrvPTuZRjeB.root;password=w1iPfIKXVa6bIML0;sslmode=Required;";
+        public MyContext() : base(connect)
         {
         }
 
